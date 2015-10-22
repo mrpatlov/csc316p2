@@ -20,27 +20,37 @@ public class HelpTickets {
 		console.close();
 	}
 	
-	TreeMap<Tickets> idTree = new TreeMap();
+	TreeMap<Integer, Tickets> idTree = new TreeMap<Integer, Tickets>();
 	PriorityTree priority = new PriorityTree();
 
-	private void processCommand(String command, int value) {
+	private void processCommand(String command, int value) throws Warnings{
 		if (command.equals("-")){
-			//code to remove by id
+			Tickets tick = idTree.remove(value);
+			priority.remove(tick.getPriority());
+			System.out.println("     " + tick.getPriority() + ", pos = position");
 		}
 		if (command.equals("+")){
 			Tickets myTicket = new Tickets(value);
-			priority.add(myTicket);
-			idTree.add(myTicket);
+			priority.put(myTicket);
+			idTree.put(myTicket.getID(), myTicket);
 			System.out.println("     id = " + myTicket.getID());
 			//code to add by priority
 		}
 		if (command.equals("?")){
-			Tickets tick = idTree.find(value);
+			Tickets tick = idTree.get(value);
+			if (tick == null){
+				throw new Warnings ("there is no ticket with id = " + value + " in the queue");
+			}
 			
-			//code to query position by id
+			//need to get position somehow
 		}
 		if (command.equals("*")){
-			//code to remove highest priority
+			if (idTree.isEmpty()){
+				throw new Warnings ("removal attempted when queue is empty");
+			}
+			Tickets tick = priority.pop();
+			idTree.remove(tick.getID());
+			System.out.println("     id = " + tick.getID() + ", " + tick.getPriority());
 		}
 		
 	}

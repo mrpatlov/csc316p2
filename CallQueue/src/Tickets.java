@@ -3,7 +3,7 @@ import java.io.IOException;
 import javax.activation.CommandObject;
 import javax.activation.DataHandler;
 
-public class Tickets implements Comparable<Tickets>, CommandObject {
+public class Tickets implements Comparable<Tickets>{
 
 	int id;
 	static int nextID = 1;
@@ -17,22 +17,6 @@ public class Tickets implements Comparable<Tickets>, CommandObject {
 		this.priority = priority;
 	}
 	
-	@Override
-	public void setCommandContext(String arg0, DataHandler arg1) throws IOException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public int compareTo(Tickets arg0) {
-		if (arg0.id > this.id){
-			return 1;
-		}
-		if (arg0.id < this.id){
-			return -1;
-		}
-		return 0;
-	}
 	
 	public int getPriority(){
 		return priority;
@@ -48,6 +32,18 @@ public class Tickets implements Comparable<Tickets>, CommandObject {
 	
 	public int getID(){
 		return this.id;
+	}
+
+
+	@Override
+	public int compareTo(Tickets other) {
+		if (other.id > this.id){
+			return 1;
+		}
+		if(other.id < this.id){
+			return -1;
+		}
+		return 0;
 	}
 
 }
