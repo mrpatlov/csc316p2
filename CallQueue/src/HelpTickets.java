@@ -21,9 +21,27 @@ public class HelpTickets {
 	}
 	
 	TreeMap<Tickets> idTree = new TreeMap();
+	PriorityTree priority = new PriorityTree();
 
 	private void processCommand(String command, int value) {
-		// TODO Auto-generated method stub
+		if (command.equals("-")){
+			//code to remove by id
+		}
+		if (command.equals("+")){
+			Tickets myTicket = new Tickets(value);
+			priority.add(myTicket);
+			idTree.add(myTicket);
+			System.out.println("     id = " + myTicket.getID());
+			//code to add by priority
+		}
+		if (command.equals("?")){
+			Tickets tick = idTree.find(value);
+			
+			//code to query position by id
+		}
+		if (command.equals("*")){
+			//code to remove highest priority
+		}
 		
 	}
 
