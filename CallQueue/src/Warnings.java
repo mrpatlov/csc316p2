@@ -1,4 +1,5 @@
 
+@SuppressWarnings("serial")
 public class Warnings extends Exception {
 
 	private String message;

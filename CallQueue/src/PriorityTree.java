@@ -139,7 +139,7 @@ public class PriorityTree {
 	 * @author Rob
 	 *
 	 */
-	private class Node {
+	public class Node {
 		/** number of items in this subtree */
 		private int count;
 		/** left child */

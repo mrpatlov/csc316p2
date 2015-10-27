@@ -1,4 +1,5 @@
-import java.util.*;
+import java.util.Scanner;
+import java.util.TreeMap;
 public class HelpTickets {
 
 	public static void main(String[] args) {
@@ -8,8 +9,9 @@ public class HelpTickets {
 		Scanner line;
 		while (console.hasNextLine()){
 			try{
-				line = new Scanner(console.nextLine());
-				System.out.println(line);
+				String myLine = console.nextLine();
+				System.out.println(myLine);
+				line = new Scanner(myLine);
 				myTickets.validateLine(line);
 			}
 			catch(Warnings c){
@@ -23,6 +25,12 @@ public class HelpTickets {
 	TreeMap<Integer, Tickets> idTree = new TreeMap<Integer, Tickets>();
 	PriorityTree priority = new PriorityTree();
 
+	/**
+	 * Process commands that have been validated
+	 * @param command The command to be executed
+	 * @param value the value associated with the command, this may be priority or id
+	 * @throws Warnings if attempting to do something that won't work
+	 */
 	private void processCommand(String command, int value) throws Warnings{
 		if (command.equals("-")){
 			Tickets tick = idTree.remove(value);
@@ -54,7 +62,12 @@ public class HelpTickets {
 		}
 		
 	}
-
+/**
+ * Validates the input to insure valid command entered
+ * calls processCommand if input valid
+ * @param line a scanner containing an input line
+ * @throws Warnings
+ */
 	private void validateLine(Scanner line) throws Warnings{
 		String command = line.next();
 		int value;
