@@ -49,8 +49,9 @@ public class HelpTickets {
 			if (tick == null){
 				throw new Warnings ("there is no ticket with id = " + value + " in the queue");
 			}
-			
-			//need to get position somehow
+			int targetPrio = tick.getPriority();
+			int position = priority.position(targetPrio);
+			System.out.println("     pos = " + position);
 		}
 		if (command.equals("*")){
 			if (idTree.isEmpty()){
