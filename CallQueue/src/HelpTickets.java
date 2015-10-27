@@ -34,8 +34,12 @@ public class HelpTickets {
 	private void processCommand(String command, int value) throws Warnings{
 		if (command.equals("-")){
 			Tickets tick = idTree.remove(value);
-			priority.remove(tick.getPriority());
-			System.out.println("     " + tick.getPriority() + ", pos = position");
+			if (tick == null) {
+				throw new Warnings("  removal attempted when queue was empty");
+			} else {
+				priority.remove(tick.getPriority());
+				System.out.println("     " + tick.getPriority() + ", pos = position");
+			}
 		}
 		if (command.equals("+")){
 			Tickets myTicket = new Tickets(value);
