@@ -37,8 +37,9 @@ public class HelpTickets {
 			if (tick == null) {
 				throw new Warnings("  removal attempted when queue was empty");
 			} else {
+				int position = priority.position(tick.getPriority());
 				priority.remove(tick.getPriority());
-				System.out.println("     " + tick.getPriority() + ", pos = position");
+				System.out.println("     " + tick.getPriority() + ", pos = " + position);
 			}
 		}
 		if (command.equals("+")){

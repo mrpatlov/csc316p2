@@ -13,7 +13,7 @@ public class PriorityTree {
 	 * @param data The first ticket added to the tree. Will be stored in the root node.
 	 */
 	public PriorityTree(Tickets data){
-		if(data.getPriority() != -1){
+		if(data != null){
 			this.root = new Node(data);
 		} else {
 			this.root = null;
@@ -29,10 +29,10 @@ public class PriorityTree {
 	}
 	
 	/**
-	 * tertiary constructor for PriorityTree objects. This should NOT be used in Project 2.
+	 * tertiary constructor for PriorityTree objects.
 	 */
 	public PriorityTree(){
-		this(-1);
+		this(null);
 	}
 	
 	/**
