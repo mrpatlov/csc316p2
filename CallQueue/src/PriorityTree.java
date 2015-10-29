@@ -168,8 +168,8 @@ public class PriorityTree {
 		private boolean putHelper(Tickets newTicket) {
 			int newPriority = newTicket.getPriority();
 			int thisPriority = data.getPriority();
-			count++;
 			if(newPriority < thisPriority) {
+				count++;
 				if(left == null) {
 					left = new Node(newTicket);
 					return true;
@@ -177,6 +177,7 @@ public class PriorityTree {
 					left.putHelper(newTicket);
 				}
 			} else if(newPriority > thisPriority) {
+				count++;
 				if(right == null) {
 					right = new Node(newTicket);
 					return true;
@@ -193,8 +194,8 @@ public class PriorityTree {
 		 */
 		private Tickets popHelper() {
 			Tickets removedTick = null;
-			this.count--;
 			if (right.right == null) {
+				count--;
 				removedTick = right.data;
 				if(right.left != null) {
 					right = right.left;
@@ -202,6 +203,7 @@ public class PriorityTree {
 					right = null;
 				}
 			} else {
+				count--;
 				removedTick = right.popHelper();
 			}
 			return removedTick;
@@ -236,8 +238,8 @@ public class PriorityTree {
 		private Tickets removeHelper(int targetPrio) {
 			Tickets removedTick = null;
 			int thisPriority = data.getPriority();
-			count--;
 			if (targetPrio < thisPriority) {
+				count--;
 				if (left == null) return null;
 				if (targetPrio == left.data.getPriority()) {
 					removedTick = left.data;
@@ -246,6 +248,7 @@ public class PriorityTree {
 					removedTick = left.removeHelper(targetPrio);
 				}
 			} else if (targetPrio > thisPriority){
+				count--;
 				if (right == null) return null;
 				if (targetPrio == right.data.getPriority()) {
 					removedTick = right.data;
@@ -276,7 +279,12 @@ public class PriorityTree {
 				}
 			} else if(targetPrio > thisPriority) {
 				if(right != null) {
-					return right.positionHelper(targetPrio, right.count);
+					if(left != null) {
+						position = position - (left.count + 1);
+					} else {
+						position--;
+					}
+					return right.positionHelper(targetPrio, position);
 				}
 			}
 			return position;
