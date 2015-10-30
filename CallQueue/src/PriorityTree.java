@@ -60,7 +60,21 @@ public class PriorityTree {
 			return null;
 		} else if (root.data.getPriority() == targetPrio) {
 			removedTick = root.data;
-			overWriteNode(root, root.left, root.right);
+			if(root.right == null) {
+				root = root.left;
+			} else if(root.left == null) {
+				root = root.right;
+			} else {
+				Node iterator = root.right;
+				while(iterator.left.left != null) {
+					iterator = iterator.left;
+				}
+				iterator.left.left = root.right.left;
+				iterator.left.right = root.right.right;
+				iterator.left.count = root.right.count;
+				root.right = iterator.left;
+				iterator.left = iterator.left.right;
+			}
 		} else {
 			removedTick = root.removeHelper(targetPrio);
 		}
@@ -115,21 +129,43 @@ public class PriorityTree {
 		return root.positionHelper(targetPrio, position);
 	}
 	
-	/**
-	 * code snippet used when removing a node
-	 * @param loc the original location of the node to remove
-	 * @param left the left child of the node to remove
-	 * @param right the right child of the node to remove
-	 */
-	private void overWriteNode(Node loc, Node left, Node right) {
-		if (left != null) {
-			loc = left;
-			while (loc.right != null) {
-				loc = loc.right;
+	private void removeNode(Node parent, int targetPrio) {
+		if(parent.right != null && parent.right.data.getPriority() == targetPrio) {
+			if(parent.right.left == null) {
+				parent.right = parent.right.right;
+				return;
+			} else if(parent.right.right == null) {
+				parent.right = parent.right.left;
+				return;
+			} else {
+				Node iterator = parent.right;
+				while(iterator.left.left != null) {
+					iterator = iterator.left;
+				}
+				iterator.left.left = parent.right.left;
+				iterator.left.right = parent.right.right;
+				iterator.left.count = parent.right.count;
+				parent.right = iterator.left;
+				iterator.left = iterator.left.right;
 			}
-			loc.right = right;
-		} else {
-			loc = right;
+		} else if(parent.left != null && parent.left.data.getPriority() == targetPrio) {
+			if(parent.left.left == null) {
+				parent.left = parent.left.right;
+				return;
+			} else if(parent.left.right == null) {
+				parent.left = parent.left.left;
+				return;
+			} else {
+				Node iterator = parent.left;
+				while(iterator.left.left != null) {
+					iterator = iterator.left;
+				}
+				iterator.left.left = parent.left.left;
+				iterator.left.right = parent.left.right;
+				iterator.left.count = parent.left.count;
+				parent.left = iterator.left;
+				iterator.left = iterator.left.right;
+			}
 		}
 	}
 
@@ -243,7 +279,7 @@ public class PriorityTree {
 				if (left == null) return null;
 				if (targetPrio == left.data.getPriority()) {
 					removedTick = left.data;
-					overWriteNode(left, left.left, left.right);
+					removeNode(this, targetPrio);
 				} else {
 					removedTick = left.removeHelper(targetPrio);
 				}
@@ -252,7 +288,7 @@ public class PriorityTree {
 				if (right == null) return null;
 				if (targetPrio == right.data.getPriority()) {
 					removedTick = right.data;
-					overWriteNode(right, right.left, right.right);
+					removeNode(this, targetPrio);
 				} else {
 					removedTick = right.removeHelper(targetPrio);
 				}
