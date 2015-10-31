@@ -65,20 +65,34 @@ public class PriorityTree {
 			} else if(root.left == null) {
 				root = root.right;
 			} else {
-				Node iterator = root.right;
-				while(iterator.left.left != null) {
-					iterator = iterator.left;
-				}
-				iterator.left.left = root.right.left;
-				iterator.left.right = root.right.right;
-				iterator.left.count = root.right.count;
-				root.right = iterator.left;
-				iterator.left = iterator.left.right;
+				root = moveSmallest(root);
 			}
 		} else {
 			removedTick = root.removeHelper(targetPrio);
 		}
 		return removedTick;
+	}
+	
+	/**
+	 * Moves the smallest node on the given sub tree to the top of the subtree
+	 * @param subRoot the root of the subtree being modified
+	 * @return the now subRoot of the subTree
+	 */
+	private Node moveSmallest(Node subRoot){
+		Node iterator = subRoot.right;
+		if (iterator.left == null){
+			iterator.left = subRoot.left;
+			return iterator;
+		}
+		while (iterator.left.left != null){
+			iterator = iterator.left;
+		}
+		Node myNode = iterator.left;
+		myNode.left = subRoot.left;
+		myNode.right = subRoot.right;
+		myNode.count = subRoot.count;
+		iterator.left = myNode.right;
+		return myNode;
 	}
 	
 	/**
@@ -138,15 +152,7 @@ public class PriorityTree {
 				parent.right = parent.right.left;
 				return;
 			} else {
-				Node iterator = parent.right;
-				while(iterator.left.left != null) {
-					iterator = iterator.left;
-				}
-				iterator.left.left = parent.right.left;
-				iterator.left.right = parent.right.right;
-				iterator.left.count = parent.right.count;
-				parent.right = iterator.left;
-				iterator.left = iterator.left.right;
+				parent.right = moveSmallest(parent.right);
 			}
 		} else if(parent.left != null && parent.left.data.getPriority() == targetPrio) {
 			if(parent.left.left == null) {
@@ -156,15 +162,7 @@ public class PriorityTree {
 				parent.left = parent.left.left;
 				return;
 			} else {
-				Node iterator = parent.left;
-				while(iterator.left.left != null) {
-					iterator = iterator.left;
-				}
-				iterator.left.left = parent.left.left;
-				iterator.left.right = parent.left.right;
-				iterator.left.count = parent.left.count;
-				parent.left = iterator.left;
-				iterator.left = iterator.left.right;
+				parent.left = moveSmallest(parent.left);
 			}
 		}
 	}

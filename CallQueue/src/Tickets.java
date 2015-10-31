@@ -1,4 +1,9 @@
-public class Tickets implements Comparable<Tickets>{
+/**
+ * Holds info about tickets
+ * @author Jeremy
+ *
+ */
+public class Tickets implements Comparable<Tickets> {
 
 	int id;
 	static int nextID = 1;

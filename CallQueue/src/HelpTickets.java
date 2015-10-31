@@ -1,7 +1,16 @@
 import java.util.Scanner;
 import java.util.TreeMap;
+/**
+ * Wraper class for The location aware priority queue
+ * @author Jeremy
+ *
+ */
 public class HelpTickets {
 
+/**
+ * Entry point for program
+ * @param args unused
+ */
 	public static void main(String[] args) {
 		
 		HelpTickets myTickets = new HelpTickets();
@@ -33,9 +42,10 @@ public class HelpTickets {
 	 */
 	private void processCommand(String command, int value) throws Warnings{
 		if (command.equals("-")){
+			if (idTree.isEmpty()) throw new Warnings("  removal attempted when queue was empty");
 			Tickets tick = idTree.remove(value);
 			if (tick == null) {
-				throw new Warnings("  removal attempted when queue was empty");
+				throw new Warnings(" there is no ticket with id = " + value + " in the queue");
 			} else {
 				int position = priority.position(tick.getPriority());
 				priority.remove(tick.getPriority());
@@ -77,7 +87,7 @@ public class HelpTickets {
 	private void validateLine(Scanner line) throws Warnings{
 		String command = line.next();
 		int value;
-		if (!(command.equals("+")||command.equals("-")||command.equals("*") || command.equals("?"))){
+		if (!(command.equals("+") || command.equals("-") || command.equals("*") || command.equals("?"))){
 			throw new Warnings("invalid command " + command);
 		}
 		if (line.hasNextInt()){
