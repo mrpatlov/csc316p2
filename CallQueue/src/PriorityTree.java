@@ -112,10 +112,11 @@ public class PriorityTree {
 			iterator = iterator.left;
 		}
 		Node myNode = iterator.left;
+		iterator.left = myNode.right;
 		myNode.left = subRoot.left;
 		myNode.right = subRoot.right;
 		myNode.count = subRoot.count;
-		iterator.left = myNode.right;
+
 		return myNode;
 	}
 	
