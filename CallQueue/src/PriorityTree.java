@@ -66,11 +66,35 @@ public class PriorityTree {
 				root = root.right;
 			} else {
 				root = moveSmallest(root);
+				recalcCount(root);
 			}
 		} else {
 			removedTick = root.removeHelper(targetPrio);
 		}
 		return removedTick;
+	}
+	
+	/**
+	 * Full recalculation of count starting at a given node.
+	 * this should allow correct counts when root is removed.
+	 * @param myNode the node rooting the subtree to be recalculated
+	 * @return count of the current node.
+	 */
+	int recalcCount (Node myNode){
+		if (myNode.left == null && myNode.right == null){
+			myNode.count = 1;
+			return myNode.count;
+		}
+		if (myNode.left == null){
+			myNode.count = recalcCount(myNode.right) + 1;
+			return myNode.count;
+		}
+		if (myNode.right == null){
+			myNode.count = recalcCount(myNode.left) + 1;
+			return myNode.count;
+		}
+		myNode.count = recalcCount(myNode.left) + recalcCount(myNode.right) + 1;
+		return myNode.count;
 	}
 	
 	/**
@@ -122,6 +146,7 @@ public class PriorityTree {
 	 * @return The ticket with the specified priority.
 	 */
 	public Tickets find(int targetPrio) {
+		if (root == null) return null;
 		return root.findHelper(targetPrio);
 	}
 	

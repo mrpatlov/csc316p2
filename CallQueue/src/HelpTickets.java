@@ -1,3 +1,5 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.TreeMap;
 /**
@@ -13,6 +15,15 @@ public class HelpTickets {
  */
 	public static void main(String[] args) {
 		
+		if (args.length > 0){
+			try {
+				System.setIn(new FileInputStream(args[0]));
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		HelpTickets myTickets = new HelpTickets();
 		Scanner console = new Scanner(System.in);
 		Scanner line;
@@ -24,7 +35,7 @@ public class HelpTickets {
 				myTickets.validateLine(line);
 			}
 			catch(Warnings c){
-				System.out.println("Warning:" + c.getMessage());
+				System.out.println("Warning: " + c.getMessage());
 			}
 			
 		}
@@ -42,7 +53,6 @@ public class HelpTickets {
 	 */
 	private void processCommand(String command, int value) throws Warnings{
 		if (command.equals("-")){
-			if (idTree.isEmpty()) throw new Warnings("  removal attempted when queue was empty");
 			Tickets tick = idTree.remove(value);
 			if (tick == null) {
 				throw new Warnings(" there is no ticket with id = " + value + " in the queue");
@@ -53,6 +63,9 @@ public class HelpTickets {
 			}
 		}
 		if (command.equals("+")){
+			if (priority.find(value) != null){
+				throw new Warnings(" a ticket with priority " + value + " is already in the queue");
+			}
 			Tickets myTicket = new Tickets(value);
 			priority.put(myTicket);
 			idTree.put(myTicket.getID(), myTicket);
@@ -85,8 +98,14 @@ public class HelpTickets {
  * @throws Warnings
  */
 	private void validateLine(Scanner line) throws Warnings{
-		String command = line.next();
 		int value;
+		String command;
+		if (line.hasNext()){
+			command = line.next();
+		}
+		else{
+			throw new Warnings( " blank line");
+		}
 		if (!(command.equals("+") || command.equals("-") || command.equals("*") || command.equals("?"))){
 			throw new Warnings("invalid command " + command);
 		}
@@ -99,6 +118,9 @@ public class HelpTickets {
 			}
 			if (command.equals("-")){
 				throw new Warnings("id " + line.next() + " is not an integer");
+			}
+			if (command.equals("?")){
+				throw new Warnings( "id " + line.next() + " is not an integer");
 			}
 			value = -1;
 		}
