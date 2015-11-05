@@ -179,6 +179,7 @@ public class PriorityTree {
 				return;
 			} else {
 				parent.right = moveSmallest(parent.right);
+				recalcCount(parent.right);
 			}
 		} else if(parent.left != null && parent.left.data.getPriority() == targetPrio) {
 			if(parent.left.left == null) {
@@ -189,6 +190,7 @@ public class PriorityTree {
 				return;
 			} else {
 				parent.left = moveSmallest(parent.left);
+				recalcCount(parent.left);
 			}
 		}
 	}

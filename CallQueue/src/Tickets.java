@@ -8,8 +8,7 @@ public class Tickets implements Comparable<Tickets> {
 	int id;
 	static int nextID = 1;
 	int priority;
-	int count;
-	PriorityTree.Node location;
+	
 	
 	/**
 	 * Constructor for tickets will make new ticket with a unquie id
@@ -30,21 +29,6 @@ public class Tickets implements Comparable<Tickets> {
 		return priority;
 	}
 	
-	/**
-	 * Sets the node that holds this ticket in the Priority Tree
-	 * @param location Node holding this ticket
-	 */
-	public void setNode(PriorityTree.Node location){
-		this.location = location;
-	}
-	
-	/**
-	 * returns the node in the priority tree holding this ticket
-	 * @return node in the priority tree holding this ticket
-	 */
-	public PriorityTree.Node getNode(){
-		return this.location;
-	}
 	
 	/**
 	 * this tickets ID
