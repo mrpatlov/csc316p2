@@ -4,7 +4,10 @@ import java.util.Scanner;
 import java.util.TreeMap;
 /**
  * Wraper class for The location aware priority queue
- * @author Jeremy
+ * @author Jeremy Vanderwall
+ * @author Alexander J. Micklow
+ * @author Michael Patlovich
+ * @author John R. Parsons IV
  *
  */
 public class BalancedHelpTickets {

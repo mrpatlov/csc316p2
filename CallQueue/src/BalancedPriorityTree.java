@@ -19,6 +19,9 @@
  * Implements an AVL tree.
  * Note that all "matching" is based on the compareTo method.
  * @author Mark Allen Weiss
+ * @author Alexander J. Micklow
+ * @author Michael Patlovich
+ * @author John R. Parsons IV
  * source url = http://users.cis.fiu.edu/~weiss/dsaajava3/code/BalancedPriorityTree.java
  */
 public class BalancedPriorityTree

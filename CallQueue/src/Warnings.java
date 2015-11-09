@@ -1,6 +1,6 @@
 /**
  * Exception class for project
- * @author Jeremy
+ * @author Jeremy Vanderwall
  *
  */
 @SuppressWarnings("serial")
