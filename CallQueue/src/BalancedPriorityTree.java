@@ -281,8 +281,16 @@ public class BalancedPriorityTree
     private AvlNode rotateWithLeftChild( AvlNode k2 )
     {
         AvlNode k1 = k2.left;
-        k2.count -= k1.left.count + 1;
-        k1.count += k2.right.count + 1;
+        if (k1.left != null) {
+        	k2.count -= k1.left.count + 1;
+        } else {
+        	k2.count--;
+        }
+        if (k2.right != null) {
+        	k1.count += k2.right.count + 1;
+        } else {
+        	k1.count++;
+        }
         k2.left = k1.right;
         k1.right = k2;
         k2.height = Math.max( height( k2.left ), height( k2.right ) ) + 1;
@@ -298,8 +306,16 @@ public class BalancedPriorityTree
     private AvlNode rotateWithRightChild( AvlNode k1 )
     {
         AvlNode k2 = k1.right;
-        k1.count -= k2.right.count + 1;
-        k2.count += k2.left.count + 1;
+        if (k2.right != null) {
+        	k1.count -= k2.right.count + 1;
+        } else {
+        	k1.count--;
+        }
+        if (k1.left != null) {
+        	k2.count += k1.left.count + 1;
+        } else {
+        	k2.count++;
+        }
         k1.right = k2.left;
         k2.left = k1;
         k1.height = Math.max( height( k1.left ), height( k1.right ) ) + 1;
