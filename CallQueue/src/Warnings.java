@@ -1,6 +1,6 @@
 /**
  * Exception class for project
- *
+ * Took contributors names out for identity purposes
  */
 @SuppressWarnings("serial")
 public class Warnings extends Exception {
