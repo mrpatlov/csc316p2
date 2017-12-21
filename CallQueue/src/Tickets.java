@@ -1,6 +1,6 @@
 /**
  * Holds info about tickets
- *
+ *Took contributors names out for identity purposes
  */
 public class Tickets implements Comparable<Tickets> {
 
