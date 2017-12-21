@@ -1,7 +1,6 @@
 /**
  * Class which defines the unbalanced, sorted binary tree used in the HelpTickets program.
  * 
- * @author John R. Parsons IV
  *
  */
 public class PriorityTree {
