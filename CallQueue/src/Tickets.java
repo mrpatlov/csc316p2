@@ -1,6 +1,5 @@
 /**
  * Holds info about tickets
- * @author Jeremy Vanderwall
  *
  */
 public class Tickets implements Comparable<Tickets> {
